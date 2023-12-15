@@ -1,32 +1,38 @@
 import unittest
-from flask_testing import TestCase
-from flask import Flask
-from app import app
+from flask_testing import TestCase  # Importa la clase TestCase de flask_testing
+from flask import Flask  # Importa la clase Flask de flask
+from app import app  # Importa la instancia de la aplicación Flask desde app.py
 
+# Define una clase de prueba que hereda de TestCase
 class TestApp(TestCase):
     def create_app(self):
-        # Configurar la aplicación para pruebas
-        app.config['TESTING'] = True
-        app.config['DEBUG'] = False
-        return app
+        # Configura la aplicación para pruebas
+        app.config['TESTING'] = True  # Habilita el modo de prueba
+        app.config['DEBUG'] = False  # Desactiva el modo de depuración
+        return app  # Retorna la instancia configurada de la aplicación Flask
 
+    # Define una prueba para el endpoint raíz "/"
     def test_root_endpoint(self):
-        # Prueba el endpoint raíz
+        # Realiza una solicitud GET al endpoint raíz "/"
         response = self.client.get('/')
+        # Verifica que el código de estado sea 200 y que el mensaje "Bienvenido" esté presente
         self.assertEqual(response.status_code, 200)
         self.assertIn(b'Bienvenido', response.data)
 
+    # Define una prueba para el endpoint "/API/products"
     def test_get_products_endpoint(self):
-        # Prueba el endpoint /API/products
+        # Realiza una solicitud GET al endpoint "/API/products"
         response = self.client.get('/API/products')
+        # Verifica que el código de estado sea 200
         self.assertEqual(response.status_code, 200)
-        # Agrega más aserciones según la respuesta esperada
 
+    # Define una prueba para el endpoint "/API/products/NOMBRE"
     def test_get_product_by_name_endpoint(self):
-        # Prueba el endpoint /API/products/NOMBRE
+        # Realiza una solicitud GET al endpoint "/API/products/Stratocaster"
         response = self.client.get('/API/products/Stratocaster')
+        # Verifica que el código de estado sea 200
         self.assertEqual(response.status_code, 200)
-        # Agrega más aserciones según la respuesta esperada
 
+# Ejecuta las pruebas si este script es ejecutado directamente
 if __name__ == '__main__':
     unittest.main()
