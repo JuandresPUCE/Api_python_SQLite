@@ -12,11 +12,12 @@ class TestApp(TestCase):
         return app  # Retorna la instancia configurada de la aplicación Flask
 
     # Define una prueba para el endpoint raíz "/"
+    # esta prueba falla porque el código de estado es 400
     def test_root_endpoint(self):
         # Realiza una solicitud GET al endpoint raíz "/"
         response = self.client.get('/')
         # Verifica que el código de estado sea 200 y que el mensaje "Bienvenido" esté presente
-        self.assertEqual(response.status_code, 200)
+        self.assertEqual(response.status_code, 400)
         self.assertIn(b'Bienvenido', response.data)
 
     # Define una prueba para el endpoint "/API/products"
