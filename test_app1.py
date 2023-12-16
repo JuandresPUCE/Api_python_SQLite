@@ -28,9 +28,10 @@ class TestApp(TestCase):
         self.assertEqual(response.status_code, 200)
 
     # Define una prueba para el endpoint "/API/products/NOMBRE"
+    # esta prueba falla porque el ingreso es diferente
     def test_get_product_by_name_endpoint(self):
         # Realiza una solicitud GET al endpoint "/API/products/Stratocaster"
-        response = self.client.get('/API/products/Stratocaster')
+        response = self.client.get('/API/products/tratocaster')
         # Verifica que el código de estado sea 200
         self.assertEqual(response.status_code, 200)
 
